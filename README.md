@@ -4,12 +4,12 @@ A mini-project exploring bit trees (a form of binary tree) and their use in tran
 
 **Authors**
 
-* Your name here
+* Jafar Jarrar
 * Samuel A. Rebelsky (starter code)
 
 **Acknowledgements**
 
-*
+* Grant Sackmann assisted me in converting to Unicode in the final method in the BrailleAsciiTables class.
 *
 *
 
