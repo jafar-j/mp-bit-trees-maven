@@ -20,6 +20,9 @@ public class BrailleASCII {
     String binary = "";
     for (int i = 0; i < source.length(); i++) {
       char temp = source.charAt(i);
+      if (temp < 97 || temp > 122) {
+        return binary + "\nTrouble translating because No corresponding value";
+      } // if
       binary += BrailleAsciiTables.toBraille(temp);
     } // for
     return binary;
@@ -56,14 +59,15 @@ public class BrailleASCII {
    * to represent all the letters in the actual word.
    */
   public static String unicode(String source) {
-    String ascii = BrailleAsciiTables.toAscii(source);
-    if (ascii.length() % 6 != 0) {
-      return "Invalid length of bit string";
-    } // if
+    // Convert letter to 8 bits ascii, then 6 bits to braille, then to unicode.
     String result = "";
-    for (int i = 0; i < ascii.length(); i += 6) {
-      String bits = ascii.substring(i, i + 6);
-      result += BrailleAsciiTables.toUnicode(bits);
+    for (int i = 0; i < source.length(); i++) {
+      char temp = source.charAt(i);
+      String braille = BrailleAsciiTables.toBraille(temp);
+      if (braille.length() % 6 != 0) {
+        return "Invalid length of bit string";
+      } // if
+      result += BrailleAsciiTables.toUnicode(braille);
     } // for
     return result;
   } // unicode(String)
@@ -82,10 +86,13 @@ public class BrailleASCII {
    */
   public static void main(String[] args) {
     PrintWriter pen = new PrintWriter(System.out, true);
-    
+    if (args.length != 2) {
+      System.err.println("Invalid number of arguments. Please try again.");
+      return;
+    } // if
     String target = args[0];
     String source = args[1];
-    switch(target) {
+    switch (target) {
       case "braille":
         pen.println(braille(source));
         break;
@@ -96,9 +103,8 @@ public class BrailleASCII {
         pen.println(unicode(source));
         break;
       default:
-        pen.println("Invalid input. Please enter a valid target character set.");
+        System.err.println("Invalid input. Please enter a valid target character set.");
     } // switch
     pen.close();
   } // main(String[]
-
 } // class BrailleASCII

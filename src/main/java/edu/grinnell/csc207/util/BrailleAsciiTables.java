@@ -202,7 +202,13 @@ public class BrailleAsciiTables {
   // +----------------+
 
   /**
-   *
+   * Converts ASCII character to String of bits representing the
+   * corresponding braille character.
+   * @param letter
+   * The ASCII character to be converted.
+   * @return
+   * A String containing bits representing the braille version of
+   * the character.
    */
   public static String toBraille(char letter) {
     if (a2bTree == null) {
@@ -221,7 +227,12 @@ public class BrailleAsciiTables {
   } // toBraille(char)
 
   /**
-   *
+   * Converts a string of bits representing the braille version
+   * of a character to the corresponding ASCII character in a String.
+   * @param bits
+   * String of braille bits to be converted to ASCII.
+   * @return
+   * The ASCII character representation of the bits.
    */
   public static String toAscii(String bits) {
     // Make sure we've loaded the braille-to-ASCII tree.
@@ -239,16 +250,21 @@ public class BrailleAsciiTables {
   } // toAscii(String)
 
   /**
-   *
+   * Converts a string of bits representing the braille version
+   * of a character to the corresponding unicode braille character.
+   * @param bits
+   * String of bits to be converted to unicode.
+   * @return
+   * The unicode representation of the bits.
    */
   public static String toUnicode(String bits) {
     // Make sure we've loaded the braille-to-ASCII tree.
     if (null == b2uTree) {
       b2uTree = new BitTree(6);
-      InputStream b2uTree = new ByteArrayInputStream(b2a.getBytes());
-      b2aTree.load(b2uTree);
+      InputStream b2uStream = new ByteArrayInputStream(b2u.getBytes());
+      b2uTree.load(b2uStream);
       try {
-        b2uTree.close();
+        b2uStream.close();
       } catch (IOException e) {
         // We don't care if we can't close the stream.
       } // try/catch

@@ -117,6 +117,8 @@ public class BitTree {
    * @param bits
    * The 0 and 1 values that will be followed to get to the
    * designated path.
+   * @return
+   * The value at the end of the path followed by the bits in the tree.
    * @throws IndexOutOfBoundsException
    * If the length of the bits string is incorrect or if the
    * String contains values other than '0' or '1'.
